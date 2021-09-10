@@ -30,7 +30,7 @@ namespace awesome_dotnet5_backgroundservice_starter
                     TodoApiUrl, _options);
 
                 return todo is not null
-                    ? $"{todo.id}{Environment.NewLine}{todo.title}"
+                    ? $"Id {todo.id}{Environment.NewLine}{todo.title}"
                     : "No todo here...";
             }
             catch (Exception ex)
