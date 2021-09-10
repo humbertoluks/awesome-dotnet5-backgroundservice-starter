@@ -19,6 +19,12 @@ namespace awesome_dotnet5_backgroundservice_starter
             _logger = logger;
         }
 
+        public override Task StopAsync(CancellationToken cancellationToken)
+        {
+            _logger.LogInformation("The service has been stopped...");
+            return base.StopAsync(cancellationToken);
+        }
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
@@ -31,12 +37,11 @@ namespace awesome_dotnet5_backgroundservice_starter
 
                     await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
+                    _logger.LogError(ex, "There was a problem executing the service");
                     throw;
                 }
-
             }
         }
     }
